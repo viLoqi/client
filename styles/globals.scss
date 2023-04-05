@@ -1,8 +1,60 @@
-@import "./variables.scss";
+@import "@/styles/variables.scss";
 
-* {
-    font-family: var(--piazzolla);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
-$roboto-serif: var(--roboto-serif);
-$piazzolla: var(--piazzolla);
+html {
+  font-size: 67.5%;
+  -webkit-text-size-adjust: none; /* for iOS Safari */
+  text-size-adjust: none; /* for other mobile browsers */
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: color(page-background);
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+video,
+iframe {
+  display: block;
+}
+
+menu,
+ol,
+ul {
+  padding-left: 0;
+}
+
+a,
+a:visited,
+a:active {
+  color: black;
+  text-decoration: none;
+}
+
+label,
+button,
+select,
+summary,
+[type="radio"],
+[type="submit"],
+[type="checkbox"] {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

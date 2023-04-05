@@ -1,9 +1,16 @@
-import LandingPage from "@/components/LandingPage";
-import HomePage from "@/components/HomePage";
-import { firebaseAuth } from "@/core/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React from "react";
+import type { NextPage } from "next";
 
-export default function Home() {
-  const [user, loading, error] = useAuthState(firebaseAuth);
-  return user ? <HomePage /> : <LandingPage />;
+import Navbar from "@/components/NavBar/NavBar";
+import Hero from "@/components/LandingPage/Hero";
+
+const MainHome: NextPage = () => {
+  return (
+    <>
+      <Navbar type="landing"></Navbar>
+      <Hero></Hero>
+    </>
+  );
 }
+
+export default MainHome;
