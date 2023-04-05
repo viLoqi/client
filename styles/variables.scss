@@ -1,9 +1,30 @@
-@mixin flexbox($direction, $justify, $align) {
-    display: flex;
-    flex-direction: $direction;
-    justify-content: $justify;
-    align-items: $align;
+@use "sass:map";
+@use "sass:string";
+
+@mixin box($width, $height: $width) {
+  width: $width;
+  height: $height;
 }
 
-/* $roboto-serif = var(--roboto-serif);
-$piazzolla = var(--piazzolla); */
+@mixin flexbox($direction: row, $justify: flex-start, $align: stretch, $x-gap: normal, $y-gap: normal) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  row-gap: $y-gap; // gap between rows
+  column-gap: $x-gap; // gap between columns
+}
+
+$colors: (
+  "navbar-background": "#D9D9D9",
+  "page-background": "#8197CD",
+  "white": "#FBFCFF",
+  "some-random-button-color": "#A1B5D8",
+);
+
+@function color($color) {
+  @return string.unquote(map.get($colors, $color));
+}
+
+$navbar-height: 6.4rem;
+$page-height: calc(100vh - $navbar-height);

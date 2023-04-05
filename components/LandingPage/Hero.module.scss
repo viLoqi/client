@@ -1,0 +1,50 @@
+@import "@/styles/variables.scss";
+
+.section {
+    @debug 100%;
+    @include box(100%, $page-height);
+    @include flexbox(row, center, center);
+
+    background-color: greenyellow;
+}
+
+.content-container {
+    @include box(90rem, 50rem);
+    @include flexbox(column, space-evenly, center);
+
+    // background-color: orange;
+
+    .title-container {
+        h1 {
+            text-align: center;
+            font-size: 6.5rem;
+            word-spacing: 1rem;
+            font-weight: bold;
+            color: color("white");
+        }
+    }
+
+    .description-container {
+        padding: 0rem 10rem;
+        p {
+            text-align: center;
+            line-height: 3rem;
+            color: color("white");
+        }
+    }
+
+    .join-button-container {
+        @include box(25rem, 7rem);
+        @include flexbox(row, center, center);
+        border-radius: 999rem;
+
+        background-color: color(some-random-button-color);
+
+        a {
+            text-align: center;
+            font-size: 4.5rem;
+            font-weight: bold;
+            word-spacing: 0.75rem;
+        }
+    }
+}
