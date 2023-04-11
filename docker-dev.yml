@@ -2,7 +2,11 @@ version: "3"
 services:
   client:
     container_name: nextjs
-    build: .
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.dev
     ports:
       - 3000:3000
+    volumes:
+      - .:/app
     restart: always
