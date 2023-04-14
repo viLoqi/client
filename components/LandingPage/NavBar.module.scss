@@ -1,0 +1,24 @@
+@import "@/styles/variables.scss";
+
+.right-container-landing {
+  align-self: flex-end;
+  @include box(calc(30vw + $navbar-side-padding), 100%);
+  @include flexbox(row, flex-end, center, $x-gap: 3rem);
+  padding-right: $navbar-side-padding;
+
+  // background-color: cyan;
+
+  div {
+    @include box(12rem, 65%);
+    @include flexbox(row, center, center);
+    border-radius: 999rem;
+
+    background-color: color("white");
+
+    a {
+      font-size: 1.6rem;
+      font-weight: bold;
+      word-spacing: 0.1rem;
+    }
+  }
+}
