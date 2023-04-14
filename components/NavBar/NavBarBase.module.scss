@@ -1,0 +1,36 @@
+@import "@/styles/variables.scss";
+
+.nav {
+    @include box(100%, $navbar-height);
+    @include flexbox();
+    background-color: color(navbar-background);
+}
+
+.left-container {
+    @include box(max(25rem, 20vw + $navbar-side-padding), 100%);
+    @include flexbox($x-gap: 2rem);
+    padding: $icon-padding 0 $icon-padding $navbar-side-padding;
+    margin-right: auto;
+    // background-color: red;
+
+    .logo-container {
+        $img-size: calc($navbar-height - 2 * $icon-padding);
+
+        @include box($img-size, $img-size);
+        position: relative;
+
+        // img {
+        //     object-fit: contain;
+        // }
+    }
+
+    .brand-name-container {
+        @include flexbox(column, center);
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 0.1rem;
+        }
+    }
+}

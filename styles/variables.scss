@@ -16,7 +16,7 @@
 }
 
 $colors: (
-  "navbar-background": "#D9D9D9",
+  "navbar-background": "#A1B5D8",
   "page-background": "#8197CD",
   "white": "#FBFCFF",
   "some-random-button-color": "#A1B5D8",
@@ -26,5 +26,11 @@ $colors: (
   @return string.unquote(map.get($colors, $color));
 }
 
+/// Navbar Variables
+
 $navbar-height: 6.4rem;
+
 $page-height: calc(100vh - $navbar-height);
+
+$icon-padding: 0.75rem;
+$navbar-side-padding: 2rem;

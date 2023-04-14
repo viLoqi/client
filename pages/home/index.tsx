@@ -4,13 +4,13 @@ import React from "react";
 import { firebaseAuth } from "@/core/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import Navbar from "@/components/NavBar/NavBar";
+import Navbar from "@/components/HomePage/NavBar";
 
 const ChatHome: NextPage = () => {
   const [user, loading, error] = useAuthState(firebaseAuth);
   return (
     <>
-      <Navbar type="app"></Navbar>
+      <Navbar></Navbar>
     </>
   ); //user ? <HomePage /> : <LandingPage />;
 };
