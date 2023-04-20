@@ -1,36 +1,54 @@
 @import "@/styles/variables.scss";
 
-.section {
-    @debug 100%;
-    @include box(100%, $page-height);
-    @include flexbox(row, center, center);
+$content-padding: 15rem;
 
-    // background-color: greenyellow;
+.section {
+    @include box(100vw, auto, $max-width: 100%);
+    padding: $content-padding 0;
+
+    background-color: color(bg-blue-400);
 }
 
 .content-container {
-    @include box(90rem, 50rem);
-    @include flexbox(column, space-evenly, center);
+    @include box(100rem, auto);
+    @include flexbox(column, space-evenly, center, $y-gap: 3rem);
+
+    margin: 0 auto;
 
     // background-color: orange;
+
+    .logo-container {
+        $img-size: 20rem;
+
+        @include box($img-size, $img-size);
+        position: relative;
+
+        // img {
+        //     object-fit: contain;
+        // }
+    }
 
     .title-container {
         h1 {
             text-align: center;
-            font-size: 6.5rem;
+            font-size: 5.5rem;
             word-spacing: 1rem;
             font-weight: bold;
-            color: color("white");
         }
     }
 
     .description-container {
-        padding: 0rem 10rem;
+        padding: 0rem 5rem;
         p {
             text-align: center;
-            line-height: 3rem;
-            color: color("white");
+            font-size: 2rem;
+            line-height: 5rem;
         }
+    }
+
+    h1,
+    p {
+        // color: black;
     }
 
     .join-button-container {
@@ -40,7 +58,7 @@
 
         background-color: color(some-random-button-color);
 
-        a {
+        p {
             text-align: center;
             font-size: 4.5rem;
             font-weight: bold;

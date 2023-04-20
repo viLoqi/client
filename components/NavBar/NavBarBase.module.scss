@@ -3,7 +3,7 @@
 .nav {
     @include box(100%, $navbar-height);
     @include flexbox();
-    background-color: color(navbar-background);
+    background-color: color(bg-navbar);
 }
 
 .left-container {

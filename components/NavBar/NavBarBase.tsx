@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Image from "next/image";
 
 import styles from "@/components/NavBar/NavBarBase.module.scss";
-import logo from "@/public/logo.svg";
+import logo from "@/public/graphics/signin.png";
 
 import { Roboto_Serif } from "@next/font/google";
 
@@ -10,8 +10,11 @@ const roboto_serif = Roboto_Serif({
     subsets: ["latin"],
 });
 
-// IMPORTANT: TYPESCRIPT for props (will prob only have children) 
-const NavBarBase = (props: any) => {
+interface NavBarBaseProps {
+    children?: ReactNode;
+}
+
+const NavBarBase = ({ children }: NavBarBaseProps) => {
     return (
         <nav className={styles["nav"]}>
             <div className={styles["left-container"]}>
@@ -22,7 +25,7 @@ const NavBarBase = (props: any) => {
                     <h1 className={roboto_serif.className}>Loqi</h1>
                 </div>
             </div>
-            {props.children}
+            {children}
         </nav>
     );
 }
