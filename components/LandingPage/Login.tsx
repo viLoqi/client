@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Icon } from '@iconify/react';
@@ -11,7 +11,6 @@ import graphic from "@/public/graphics/signin.png";
 
 const Login = () => {
     const router = useRouter();
-    const [route, setRoute] = useState();
 
     const [signInWithGoogle] = useSignInWithGoogle(firebaseAuth);
     const googleSignIn = () => {

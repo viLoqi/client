@@ -26,11 +26,19 @@
   }
 }
 
-@mixin flexbox($direction: row, $justify: flex-start, $align: stretch, $x-gap: normal, $y-gap: normal) {
+@mixin flexbox(
+  $direction: row,
+  $justify: flex-start,
+  $align: stretch,
+  $flex-wrap: nowrap,
+  $x-gap: normal,
+  $y-gap: normal
+) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
+  flex-wrap: $flex-wrap;
   row-gap: $y-gap; // gap between rows
   column-gap: $x-gap; // gap between columns
 }
@@ -38,7 +46,7 @@
 $colors: (
   "bg-navbar": "#8EB8E5",
   "bg-blue-600": "#8197CD",
-  "bg-blue-400": "#D0DDEF",
+  "bg-blue-300": "#D0DDEF",
   "bg-blue-100": "#ECF3FD",
   "blue-accent": "#004AAD",
   "white": "#FBFCFF",
@@ -64,3 +72,7 @@ $content-padding: 8rem;
 
 $page-height-with-navbar: calc(100vh - $navbar-height);
 // $page-height: calc(100vw * 9 / 16);
+
+// ========== App Page Variables
+
+$app-page-bg-color: color("bg-blue-600");

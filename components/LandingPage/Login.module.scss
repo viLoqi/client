@@ -6,7 +6,7 @@ $content-padding: 10rem;
     @include box(100vw, auto, $max-width: 100%);
     padding: $content-padding 0;
 
-    background-color: color(bg-blue-400);
+    background-color: color(bg-blue-300);
 }
 
 .content-container {
