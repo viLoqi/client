@@ -4,7 +4,7 @@
     @include box(100vw, $page-height-with-navbar);
     @include flexbox();
 
-    overflow-y: scroll;
+    overflow-y: auto;
 
     background-color: $app-page-bg-color;
 

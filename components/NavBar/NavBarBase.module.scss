@@ -3,6 +3,7 @@
 .nav {
     @include box(100%, $navbar-height);
     @include flexbox();
+
     background-color: color(bg-navbar);
 }
 
@@ -11,6 +12,7 @@
     @include flexbox($x-gap: 2rem);
     padding: $icon-padding 0 $icon-padding $navbar-side-padding;
     margin-right: auto;
+
     // background-color: red;
 
     .logo-container {

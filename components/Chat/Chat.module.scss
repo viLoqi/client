@@ -1,0 +1,23 @@
+@import "@/styles/variables.scss";
+
+.section {
+    @include box(100vw, $page-height-with-navbar);
+    @include flexbox();
+
+    background-color: $app-page-bg-color;
+
+    $left-nav-width: 40rem;
+    $left-nav-max-width: 40vw;
+
+    .left-nav-container {
+        @include box($left-nav-width, 100%, $max-width: $left-nav-max-width);
+
+        background-color: rgba($color: green, $alpha: 0.5);
+    }
+
+    .chat-container {
+        @include box(calc(100vw - $left-nav-width), 100%, $min-width: calc(100vw - $left-nav-max-width));
+
+        background-color: rgba($color: red, $alpha: 0.5);
+    }
+}

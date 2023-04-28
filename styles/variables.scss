@@ -26,21 +26,32 @@
   }
 }
 
-@mixin flexbox(
-  $direction: row,
-  $justify: flex-start,
-  $align: stretch,
-  $flex-wrap: nowrap,
-  $x-gap: normal,
-  $y-gap: normal
-) {
+@mixin flexbox($direction: null, $justify: null, $align: null, $flex-wrap: null, $x-gap: null, $y-gap: null) {
   display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: $align;
-  flex-wrap: $flex-wrap;
-  row-gap: $y-gap; // gap between rows
-  column-gap: $x-gap; // gap between columns
+
+  @if $direction {
+    flex-direction: $direction;
+  }
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $flex-wrap {
+    flex-wrap: $flex-wrap;
+  }
+
+  @if $y-gap {
+    row-gap: $y-gap; // gap between rows
+  }
+
+  @if $x-gap {
+    column-gap: $x-gap; // gap between columns
+  }
 }
 
 $colors: (
