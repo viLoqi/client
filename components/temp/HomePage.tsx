@@ -1,18 +1,18 @@
-import React from "react";
-import { useCollectionOnce } from "react-firebase-hooks/firestore";
-import { collection } from "firebase/firestore";
-import { firebaseStore, firebaseAuth } from "@/core/firebase";
-import AvatarOnline from "./AvatarOnline";
-import NavBar from "./NavBar";
-import ChatCard from "./ChatCard";
-import useIcon from "@/hooks/useIcon";
-import CardFilter from "./CardFilter";
+import React from 'react';
+import { useCollectionOnce } from 'react-firebase-hooks/firestore';
+import { collection } from 'firebase/firestore';
+import { firebaseStore, firebaseAuth } from '@/core/firebase';
+import AvatarOnline from './AvatarOnline';
+import NavBar from './NavBar';
+import ChatCard from './ChatCard';
+import useIcon from '@/hooks/useIcon';
+import CardFilter from './CardFilter';
 
 const HomePage = () => {
   const [value, loading, error] = useCollectionOnce(
-    collection(firebaseStore, "chats")
+    collection(firebaseStore, 'chats')
   );
-  const compassIcon = useIcon("compass");
+  const compassIcon = useIcon('compass');
 
   const cards = value?.docs.map((e) => {
     const { description, members, professor } = e.data();

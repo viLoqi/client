@@ -1,10 +1,10 @@
-import useIcon from "@/hooks/useIcon";
+import useIcon from '@/hooks/useIcon';
 
 const NavBar = () => {
-  const compassIcon = useIcon("compass");
-  const bellIcon = useIcon("bell");
-  const searchIcon = useIcon("search");
-  const faqIcon = useIcon("faq");
+  const compassIcon = useIcon('compass');
+  const bellIcon = useIcon('bell');
+  const searchIcon = useIcon('search');
+  const faqIcon = useIcon('faq');
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">

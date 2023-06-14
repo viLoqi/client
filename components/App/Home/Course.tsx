@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { firebaseAuth, firebaseStore } from '@/core/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { doc } from 'firebase/firestore'
+import { doc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
 import styles from '@/components/App/Home/Course.module.scss';
@@ -22,13 +22,13 @@ const Course = ({ courseName }: CourseProps) => {
 
 
   const [value, loading, error] = useDocument(
-    doc(firebaseStore, `chats/`, courseName),
+    doc(firebaseStore, 'chats/', courseName),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
     }
   );
 
-  const sections = value?.data()?.sections ?? []
+  const sections = value?.data()?.sections ?? [];
 
   return (
     <Link href={`/chat?course=${courseName.toLowerCase()}`} className={styles.container}>
