@@ -1,24 +1,67 @@
 @use "sass:map";
 @use "sass:string";
 
-@mixin box($width, $height: $width) {
-  width: $width;
-  height: $height;
+@mixin box($width, $height: null, $min-width: null, $min-height: null, $max-width: null, $max-height: null) {
+  @if $width {
+    width: $width;
+  }
+
+  @if $height {
+    height: $height;
+  }
+
+  @if $min-width {
+    min-width: $min-width;
+  }
+  @if $min-height {
+    min-height: $min-height;
+  }
+
+  @if $max-width {
+    max-width: $max-width;
+  }
+
+  @if $max-height {
+    max-height: $max-height;
+  }
 }
 
-@mixin flexbox($direction: row, $justify: flex-start, $align: stretch, $x-gap: normal, $y-gap: normal) {
+@mixin flexbox($direction: null, $justify: null, $align: null, $flex-wrap: null, $x-gap: null, $y-gap: null) {
   display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: $align;
-  row-gap: $y-gap; // gap between rows
-  column-gap: $x-gap; // gap between columns
+
+  @if $direction {
+    flex-direction: $direction;
+  }
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $flex-wrap {
+    flex-wrap: $flex-wrap;
+  }
+
+  @if $y-gap {
+    row-gap: $y-gap; // gap between rows
+  }
+
+  @if $x-gap {
+    column-gap: $x-gap; // gap between columns
+  }
 }
 
 $colors: (
-  "navbar-background": "#A1B5D8",
-  "page-background": "#8197CD",
+  "bg-navbar": "#8EB8E5",
+  "bg-blue-600": "#8197CD",
+  "bg-blue-300": "#D0DDEF",
+  "bg-blue-100": "#ECF3FD",
+  "blue-accent": "#004AAD",
   "white": "#FBFCFF",
+  "login-button": "#93CEE9",
   "some-random-button-color": "#A1B5D8",
 );
 
@@ -26,11 +69,21 @@ $colors: (
   @return string.unquote(map.get($colors, $color));
 }
 
-/// Navbar Variables
+/// ========== Navbar Variables
 
 $navbar-height: 6.4rem;
-
-$page-height: calc(100vh - $navbar-height);
-
 $icon-padding: 0.75rem;
 $navbar-side-padding: 2rem;
+
+// ========== Landing Page Variables
+
+$content-padding: 8rem;
+
+// ========== Page Variables
+
+$page-height-with-navbar: calc(100vh - $navbar-height);
+// $page-height: calc(100vw * 9 / 16);
+
+// ========== App Page Variables
+
+$app-page-bg-color: color("bg-blue-600");

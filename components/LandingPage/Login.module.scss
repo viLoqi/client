@@ -1,0 +1,82 @@
+@import "@/styles/variables.scss";
+
+$content-padding: 10rem;
+
+.section {
+    @include box(100vw, auto, $max-width: 100%);
+    padding: $content-padding 0;
+
+    background-color: color(bg-blue-300);
+}
+
+.content-container {
+    @include box(100rem, auto);
+    @include flexbox(column, space-evenly, center, $y-gap: 3rem);
+
+    margin: 0 auto;
+
+    // background-color: rgba($color: orange, $alpha: 0.5);
+
+    .logo-container {
+        $img-size: 35rem;
+
+        @include box($img-size, $img-size);
+        position: relative;
+
+        // img {
+        //     object-fit: contain;
+        // }
+    }
+
+    .title-container {
+        h1 {
+            text-align: center;
+            font-size: 5.5rem;
+            word-spacing: 1rem;
+            font-weight: bold;
+        }
+    }
+
+    .description-container {
+        padding: 0rem 5rem;
+        p {
+            text-align: center;
+            font-size: 2rem;
+            line-height: 5rem;
+        }
+    }
+
+    .buttons-container {
+        @include box(100%, auto);
+        @include flexbox(row, space-evenly);
+
+        // background-color: rgba($color: green, $alpha: 0.5);
+
+        div,
+        a {
+            @include box(25rem, 7rem);
+            @include flexbox(row, center, center);
+
+            padding: 1rem 0;
+            border-radius: 999rem;
+
+            cursor: pointer;
+
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            word-spacing: 0.75rem;
+
+            background-color: color(login-button);
+
+            * {
+                align-self: auto;
+            }
+
+            img,
+            svg {
+                @include box(100%, 100%);
+            }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+@import "@/styles/variables.scss";
+
+$content-padding: 2.5rem;
+
+.section {
+    @include box(100vw, auto, $max-width: 100%);
+    padding: $content-padding 0;
+
+    background-color: color(bg-blue-100);
+}
+
+.content-container {
+    @include box(auto, auto);
+    @include flexbox(row, $justify: center, $x-gap: 5rem);
+
+    margin: 0 auto;
+
+    // background-color: rgba($color: orange, $alpha: 0.3);
+
+    .graphic-container {
+        $img-size: 60rem;
+
+        @include box($img-size, $img-size);
+        position: relative;
+
+        // background: rgba($color: red, $alpha: 0.5);
+
+        // img {
+        //     object-fit: contain;
+        // }
+    }
+
+    .text-container {
+        @include box(40rem);
+        @include flexbox(column, center, $y-gap: 2rem);
+
+        padding: 0 2rem;
+
+        // background-color: rgba($color: green, $alpha: 0.5);
+
+        .title-container {
+            h1 {
+                font-size: 5.5rem;
+                font-weight: bold;
+            }
+        }
+
+        .description-container {
+            p {
+                font-size: 2rem;
+                line-height: 3rem;
+            }
+        }
+    }
+}

@@ -1,30 +1,39 @@
-import React from "react";
-import Image from "next/image";
+import React, { ReactNode } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import styles from "@/components/NavBar/NavBarBase.module.scss";
-import logo from "@/public/logo.svg";
+import { firebaseAuth } from '@/core/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { Roboto_Serif } from "@next/font/google";
+import styles from '@/components/NavBar/NavBarBase.module.scss';
+import logo from '@/public/graphics/signin.png';
+
+import { Roboto_Serif } from '@next/font/google';
 
 const roboto_serif = Roboto_Serif({
-    subsets: ["latin"],
+  subsets: ['latin']
 });
 
-// IMPORTANT: TYPESCRIPT for props (will prob only have children) 
-const NavBarBase = (props: any) => {
-    return (
-        <nav className={styles["nav"]}>
-            <div className={styles["left-container"]}>
-                <div className={styles["logo-container"]}>
-                    <Image src={logo} alt="loqi logo" fill></Image>
-                </div>
-                <div className={styles["brand-name-container"]}>
-                    <h1 className={roboto_serif.className}>Loqi</h1>
-                </div>
-            </div>
-            {props.children}
-        </nav>
-    );
+interface NavBarBaseProps {
+  children?: ReactNode;
 }
+
+const NavBarBase = ({ children }: NavBarBaseProps) => {
+  const [user, authLoading, authError] = useAuthState(firebaseAuth);
+
+  return (
+    <nav className={styles.nav}>
+      <div className={styles['left-container']}>
+        <Link href={!user ? '/' : '/app'} className={styles['logo-container']}>
+          <Image src={logo} alt="loqi logo" fill></Image>
+        </Link>
+        <Link href={!user ? '/' : '/app'} className={styles['brand-name-container']}>
+          <h1 className={roboto_serif.className}>Loqi</h1>
+        </Link>
+      </div>
+      {children}
+    </nav>
+  );
+};
 
 export default NavBarBase;

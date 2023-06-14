@@ -1,0 +1,30 @@
+@import "@/styles/variables.scss";
+
+.container {
+    @include box(20rem, 25rem);
+    border: black 0.2rem solid;
+    padding-top: 3rem;
+
+    background-color: rgba($color: green, $alpha: 1);
+
+    box-shadow: rgb(38, 57, 77) 0rem 2rem 3rem -1rem;
+
+    .name-container {
+        @include box(75%, 6rem);
+        @include flexbox();
+        border: black 0.2rem solid;
+        margin: 0 auto;
+
+        background-color: color("white");
+
+        p {
+            @include box(100%, auto);
+            margin: auto;
+
+            font-size: 2.5rem;
+            text-align: center;
+
+            // background-color: rgba($color: green, $alpha: 0.5);
+        }
+    }
+}

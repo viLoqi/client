@@ -1,9 +1,21 @@
 @import "@/styles/variables.scss";
 
-.right-container-landing {
-  align-self: flex-end;
+.middle-container {
+  @include box(auto, 100%);
+  @include flexbox();
+  padding: 0 2rem;
+
+  h1 {
+    margin: auto;
+
+    font-size: 3.5rem;
+  }
+}
+
+.right-container {
   @include box(auto, 100%);
   @include flexbox(row, flex-end, center, $x-gap: 2rem);
+  margin-left: auto;
   padding-right: $navbar-side-padding;
 
   // background-color: cyan;
