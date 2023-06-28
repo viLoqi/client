@@ -11,7 +11,7 @@ const CourseChat: NextPage = () => {
   return (
     <>
       <NavBar courseName={courseName} sectionName={sectionName} />
-      <Chat setCourse={setCourseName} setSectionName={setSectionName} />
+      <Chat courseName={courseName} sectionName={sectionName} setCourse={setCourseName} setSectionName={setSectionName} />
     </>
   );
 };
