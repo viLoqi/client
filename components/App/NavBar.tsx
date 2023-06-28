@@ -31,8 +31,8 @@ const NavBar = ({ courseName, sectionName }: NavBarProps) => {
     <NavBarBase>
       {courseName && sectionName
         ? <div className={styles['middle-container']}>
-          <h1>{courseName.replace(/(\D+)(\d+)/, '$1 $2').toUpperCase()} / </h1>
-          <h1>{sectionName.replace(/(\D+)(\d+)/, '$1 $2').toUpperCase()}</h1>
+          <h1>{courseName.replace(/(\D+)(\d+)/, '$1 $2')} / </h1>
+          <h1>{sectionName.replace(/(\D+)(\d+)/, '$1 $2')}</h1>
         </div>
         : <></>}
 
