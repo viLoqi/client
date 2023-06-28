@@ -6,13 +6,12 @@ import Chat from '@/components/Chat/Chat';
 
 const CourseChat: NextPage = () => {
   const [courseName, setCourseName] = useState<string>('');
-
-  console.log(courseName);
+  const [sectionName, setSectionName] = useState<string>('');
 
   return (
     <>
-      <NavBar courseName={courseName} />
-      <Chat setCourse={setCourseName} />
+      <NavBar courseName={courseName} sectionName={sectionName} />
+      <Chat setCourse={setCourseName} setSectionName={setSectionName} />
     </>
   );
 };

@@ -13,9 +13,10 @@ import profilePicture from '@/public/default_pfp.png';
 
 interface NavBarProps {
   courseName?: string;
+  sectionName?: string;
 }
 
-const NavBar = ({ courseName }: NavBarProps) => {
+const NavBar = ({ courseName, sectionName }: NavBarProps) => {
   const router = useRouter();
   const [user, authLoading, authError] = useAuthState(firebaseAuth);
 
@@ -28,9 +29,10 @@ const NavBar = ({ courseName }: NavBarProps) => {
 
   return (
     <NavBarBase>
-      {courseName
+      {courseName && sectionName
         ? <div className={styles['middle-container']}>
-          <h1>{courseName.replace(/(\D+)(\d+)/, '$1 $2').toUpperCase()}</h1>
+          <h1>{courseName.replace(/(\D+)(\d+)/, '$1 $2').toUpperCase()} / </h1>
+          <h1>{sectionName.replace(/(\D+)(\d+)/, '$1 $2').toUpperCase()}</h1>
         </div>
         : <></>}
 

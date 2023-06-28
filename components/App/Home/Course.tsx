@@ -31,7 +31,7 @@ const Course = ({ courseName }: CourseProps) => {
   const sections = value?.data()?.sections ?? [];
 
   return (
-    <Link href={`/chat?course=${courseName.toLowerCase()}`} className={styles.container}>
+    <Link href={`/select?course=${courseName.toLowerCase()}`} className={styles.container}>
       <div className={styles['name-container']}>
         <p>{courseName.replace(/(\D+)(\d+)/, '$1 $2')}</p>
       </div>
