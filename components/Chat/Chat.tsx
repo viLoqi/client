@@ -44,7 +44,7 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: chatProps)
           'content': message,
           'author': user?.displayName
         })
-      }).then(() => { console.log('Message Sent!'); });
+      }).then(() => { console.log('Message Sent!'); }).catch(e => { console.log(e); });
   };
 
   return (
