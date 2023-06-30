@@ -38,7 +38,7 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: chatProps)
 
   const handleOnClick = () => {
     if (message)
-      fetch('http://localhost:8080/api/messaging', {
+      fetch('/api/messaging', {
         method: 'POST', body: JSON.stringify({
           'collectionPath': `chats/${courseName}/${sectionName}/room/messages`,
           'content': message,
