@@ -1,13 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: '/api/messaging',
-        destination: 'http://messaging:8080/api/messaging',
-      },
-    ]
-  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
