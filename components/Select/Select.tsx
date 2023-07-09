@@ -20,29 +20,33 @@ interface InfoDoc {
     sec_ins: string
 }
 
+interface GradeData {
+    section: string
+    term: string
+    courseTitle: string
+    instructor: string
+    grades: { [key: string]: number }
+}
+
 const Select = ({ courseName, setCourseName }: SelectProps) => {
     const router = useRouter();
     const { course } = router.query;
 
     // This document contains the sections for a particular course
-    const [sectionDocument, isDocLoad, IsDocError] = useDocument(doc(firebaseStore, `/chats/${courseName === '' ? 'CSE 101' : courseName}`));
+    const [sectionDocument, isDocLoad, IsDocError] = useDocument(doc(firebaseStore, `/chats/${courseName === '' ? 'CSE101' : courseName}`));
 
     const sections = sectionDocument?.data()?.sections!
-
-    console.log(sections)
-
 
     if (course) { setCourseName(course); }
 
     // line 2 fetches professor name
     return <div className={styles.container}>
         {sectionDocument ? sections.map((e: InfoDoc) => { return <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`}>{e.sec_id}</Link>; }) : <></>}
-        {sectionDocument ? sections.map((e) => {
-
-
-
-
-
+        {sectionDocument ? sections.map((e: InfoDoc) => {
+            fetch(`https://gradus.jiechen.dev/api/all/?query=${e.sec_ins}&field=instructor`).then(r => r.json().then(data => {
+                const rel = data.filter((pastCourse: GradeData) => pastCourse.section.includes(courseName))
+                console.log(rel)
+            }))
         }) : <></>}
     </div>;
 };
