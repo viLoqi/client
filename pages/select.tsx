@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
-
+import { AxisOptions, Chart } from "react-charts";
 import NavBar from '@/components/App/NavBar';
 import Select from '@/components/Select/Select';
 

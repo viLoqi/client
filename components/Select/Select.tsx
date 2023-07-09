@@ -15,21 +15,35 @@ interface SelectProps {
     setCourseName: any// Dispatch<SetStateAction<string>>
 }
 
+interface InfoDoc {
+    sec_id: string
+    sec_ins: string
+}
+
 const Select = ({ courseName, setCourseName }: SelectProps) => {
     const router = useRouter();
-    const { course, section_id } = router.query;
+    const { course } = router.query;
 
-    // need to interpolate course name
+    // This document contains the sections for a particular course
+    const [sectionDocument, isDocLoad, IsDocError] = useDocument(doc(firebaseStore, `/chats/${courseName === '' ? 'CSE 101' : courseName}`));
 
+    const sections = sectionDocument?.data()?.sections!
 
-    const [documentValue, collectionLoading, collectionError] = useDocument(doc(firebaseStore, `/chats/${courseName === '' ? 'CSE 101' : courseName}`));
+    console.log(sections)
 
-    console.log(documentValue?.data());
 
     if (course) { setCourseName(course); }
 
+    // line 2 fetches professor name
     return <div className={styles.container}>
-        {documentValue ? documentValue.data()!.sections.map((e: string) => { return <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e}`}>{e}</Link>; }) : <></>}
+        {sectionDocument ? sections.map((e: InfoDoc) => { return <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`}>{e.sec_id}</Link>; }) : <></>}
+        {sectionDocument ? sections.map((e) => {
+
+
+
+
+
+        }) : <></>}
     </div>;
 };
 
