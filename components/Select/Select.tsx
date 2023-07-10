@@ -58,10 +58,9 @@ const Select = ({ courseName, setCourseName }: SelectProps) => {
     useEffect(() => {
         const data = sectionDocument?.data()
         if (data) {
-            data.sections.forEach(async (e: InfoDoc) => {
-                await fetch(`https://gradus.jiechen.dev/api/all/?query=${e.sec_ins}&field=instructor`).then(r => r.json().then(result => {
+            data.sections.forEach((e: InfoDoc) => {
+                fetch(`https://gradus.jiechen.dev/api/all/?query=${e.sec_ins}&field=instructor`).then(r => r.json().then(result => {
                     const rel: GradeData[] = result.filter((pastCourse: GradeData) => pastCourse.section.includes(courseName))
-
                     const ob: { [key: string]: { [key: string]: number } } = {}
                     ob[e.sec_ins] = tally(rel)
                     setGradeData((prev) => Object.assign(ob, prev))
@@ -74,7 +73,7 @@ const Select = ({ courseName, setCourseName }: SelectProps) => {
 
     // line 2 fetches professor name
     return (<div className={styles.container}>
-        {sections ? sections.map((e: InfoDoc) => {
+        {sections !== undefined ? sections.map((e: InfoDoc) => {
             return <>
                 <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`}>{e.sec_id} by {e.sec_ins}</Link>
                 <DistrChart course={courseName} data={gradeData[e.sec_ins]} />
