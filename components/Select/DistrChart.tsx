@@ -88,6 +88,10 @@ const makeSharedOptions = (course) => {
 export default function DistrChart({ course, data }): React.JSX.Element {
     if (!data || data === undefined) return;
 
+    // the DON't CARES
+    delete data["I"]
+    delete data["W"]
+
     const [meta, setMeta] = useState<string[]>([])
 
     const values = Object.values(data)
