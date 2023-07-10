@@ -30,6 +30,29 @@ ChartJS.register(
     LineController
 );
 
+interface GradusResponse {
+    section: string
+    term: string
+    courseTitle: string
+    instructor: string
+    grades: { [key: string]: number }
+}
+
+const tally = (arr: GradeData[]): { [key: string]: number } => {
+    const total: { [key: string]: number } = {};
+    arr.forEach((r) => {
+        Object.keys(r.grades).forEach((e) => {
+            if (e in total) {
+                total[e] = total[e] + r.grades[e];
+            } else {
+                total[e] = r.grades[e];
+            }
+        });
+    });
+    return total;
+};
+
+
 const makeSharedOptions = (course) => {
     return {
         responsive: true,
@@ -87,48 +110,54 @@ const makeSharedOptions = (course) => {
 };
 
 
-export default function DistrChart({ course, data }): React.JSX.Element {
-    if (!data || data === undefined) return;
-
-    // the DON't CARES
-    delete data["I"]
-    delete data["W"]
-
+export default function DistrChart({ courseName, instructor }): React.JSX.Element {
+    const [data, setData] = useState<{ [key: string]: number }>(null)
     const [meta, setMeta] = useState<string[]>([])
 
-    const values = Object.values(data)
 
     useEffect(() => {
-        fetch("https://gradus.jiechen.dev/api/meta/").then(r => r.json().then(d => setMeta(d)))
+        fetch(`https://gradus.jiechen.dev/api/instructor/class?instructor=${instructor}`).then(r => r.json().then((d: GradusResponse) => setMeta([...new Set(d.map(el => el.term))])))
+
+        fetch(encodeURI(`https://gradus.jiechen.dev/api/class/?query=${courseName}&instructor=${instructor}`)).then(r => r.json().then(result => {
+            const res = tally(result)
+            // the DON't CARES
+            delete res["I"]
+            delete res["W"]
+            setData(res)
+        }))
     }, [])
 
-    const sum = values.reduce((a, b) => {
-        return a + b;
-    }, 0);
+    console.log(data)
 
-    // converting the values to percentages
-    const chartValues = values.map((e) => {
-        return (e / sum) * 100;
-    });
+    if (data) {
+        const values = Object.values(data)
+        const sum = values.reduce((a, b) => {
+            return a + b;
+        }, 0);
 
-    const chartData = {
-        labels: Object.keys(data),
-        datasets: [{
-            label: "All",
-            data: chartValues,
-            borderWidth: 1
-        }]
+        // converting the values to percentages
+        const chartValues = values.map((e) => {
+            return (e / sum) * 100;
+        });
+
+        const chartData = {
+            labels: Object.keys(data),
+            datasets: [{
+                label: courseName,
+                data: chartValues,
+                borderWidth: 1
+            }]
+        }
+
+        const options = makeSharedOptions(courseName);
+
+
+
+        return (
+            <div style={{ 'position': 'relative', height: '40vh', width: '80vw', wordWrap: 'normal' }}>
+                <Bar key={courseName} options={options} data={chartData} />
+                Teaching @ Stony Brook University Since: {meta[0]}
+            </div >
+        );
     }
-
-    const options = makeSharedOptions(course);
-
-
-
-    return (
-        <div style={{ 'position': 'relative', height: '40vh', width: '80vw' }}>
-            <Bar key={course} options={options} data={chartData} />
-            All | {meta.join(" | ")}
-        </div >
-    );
-
 }
