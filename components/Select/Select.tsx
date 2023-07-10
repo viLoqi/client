@@ -74,10 +74,10 @@ const Select = ({ courseName, setCourseName }: SelectProps) => {
     // line 2 fetches professor name
     return (<div className={styles.container}>
         {sections !== undefined ? sections.map((e: InfoDoc) => {
-            return <>
+            return <div key={e.sec_id} className={styles['sectionCard']}>
                 <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`}>{e.sec_id} by {e.sec_ins}</Link>
                 <DistrChart course={courseName} data={gradeData[e.sec_ins]} />
-            </>
+            </div>
 
         }) : <></>}
     </div >)

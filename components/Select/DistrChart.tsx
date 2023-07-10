@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Bar } from "react-chartjs-2";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
     Chart as ChartJS,
@@ -15,6 +15,7 @@ import {
     LineElement,
     LineController,
 } from "chart.js";
+import { TypedChartComponent } from "react-chartjs-2/dist/types";
 
 ChartJS.register(
     CategoryScale,
@@ -70,6 +71,7 @@ const makeSharedOptions = (course) => {
                         size: 16,
                     },
                 },
+                max: 100
             },
             x: {
                 title: {
@@ -112,7 +114,7 @@ export default function DistrChart({ course, data }): React.JSX.Element {
     const chartData = {
         labels: Object.keys(data),
         datasets: [{
-            label: course,
+            label: "All",
             data: chartValues,
             borderWidth: 1
         }]
@@ -121,8 +123,9 @@ export default function DistrChart({ course, data }): React.JSX.Element {
     const options = makeSharedOptions(course);
 
 
+
     return (
-        <div style={{ width: 1600, height: 900 }} >
+        <div style={{ 'position': 'relative', height: '40vh', width: '80vw' }}>
             <Bar key={course} options={options} data={chartData} />
             All | {meta.join(" | ")}
         </div >
