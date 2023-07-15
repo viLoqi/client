@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { useRouter } from 'next/router';
-import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState } from '@/core/firebase';
+import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState, MessageDoc, UserDoc } from '@/core/firebase';
 import styles from '@/components/Chat/Chat.module.scss';
-import Message, { MessageElement } from './Message';
+import Message from './Message';
 import OnlineUser from './OnlineUser';
 
 interface ChatProps {
@@ -10,11 +10,6 @@ interface ChatProps {
   setSectionName: any
   courseName: string,
   sectionName: string,
-}
-
-interface UserElement {
-  name: string
-  photoURL: string
 }
 
 const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps) => {
@@ -72,7 +67,7 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps)
       <div className={styles['main']}>
         <div className={styles['chat-container']} ref={chatBoxRef}>
           {firebaseMessages?.docs.map(e => {
-            const currMsg = e.data() as MessageElement
+            const currMsg = e.data() as MessageDoc
             return <Message key={crypto.randomUUID()} {...currMsg} />
           })}
         </div>
@@ -85,7 +80,7 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps)
 
       <div className={styles['user-list-container']}>
         {onlineUserList?.docs.map(e => {
-          const currUser = e.data() as UserElement
+          const currUser = e.data() as UserDoc
           return <OnlineUser key={e.id} {...currUser} />
         })}
       </div>
