@@ -1,17 +1,11 @@
 import moment from "moment"
-import { Timestamp } from "firebase/firestore"
 import styles from './Message.module.scss'
 import { Avatar } from "@mui/material"
+import { MessageDoc } from "@/core/firebase"
 
-export interface MessageElement {
-    author: string
-    authorPhotoURL: string
-    content: string
-    firstCreated: Timestamp
-    lastUpdated: Timestamp
-}
+interface MessageProps extends MessageDoc { }
 
-const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }: MessageElement) => {
+const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }: MessageProps) => {
     const messageDisplayTime = moment().calendar(lastUpdated.toDate()).toString()
 
     // if firstCreated != lastUpdated then that means the message was edited

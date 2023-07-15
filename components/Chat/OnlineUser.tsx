@@ -1,10 +1,8 @@
 import StyledBadge from "./StyledBadge";
 import { Avatar } from "@mui/material";
+import { UserDoc } from "@/core/firebase";
 
-interface OnlineUserProps {
-    name: string
-    photoURL: string
-}
+interface OnlineUserProps extends UserDoc { }
 
 const OnlineUser = ({ name, photoURL }: OnlineUserProps) => {
     return <div>

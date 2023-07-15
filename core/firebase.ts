@@ -1,10 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, collection, query, orderBy } from 'firebase/firestore';
+import { getFirestore, doc, collection, query, orderBy, Timestamp } from 'firebase/firestore';
 import { getDatabase, ref } from 'firebase/database'
 import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -29,3 +28,21 @@ export { ref, doc, collection, query, orderBy }
 
 // Firebase Hook Exports
 export { useDocument, useAuthState, useCollection, useSignInWithGoogle }
+
+export interface UserDoc {
+  name: string
+  photoURL: string
+}
+
+export interface SectionInfoDoc {
+  sec_id: string
+  sec_ins: string
+}
+
+export interface MessageDoc {
+  author: string
+  authorPhotoURL: string
+  content: string
+  firstCreated: Timestamp
+  lastUpdated: Timestamp
+}

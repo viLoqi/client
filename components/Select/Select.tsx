@@ -1,18 +1,12 @@
 import { useRouter } from 'next/router';
-import { firebaseStore, doc, useDocument } from '@/core/firebase';
+import { firebaseStore, doc, useDocument, SectionInfoDoc } from '@/core/firebase';
 import styles from './Select.module.scss';
 import Link from 'next/link';
 import DistrChart from './DistrChart';
 
-
 interface SelectProps {
     courseName: any
     setCourseName: any
-}
-
-interface InfoDoc {
-    sec_id: string
-    sec_ins: string
 }
 
 const redirectSideEffect = () => {
@@ -20,8 +14,6 @@ const redirectSideEffect = () => {
     // this can honestly be a cloud function
     console.log("Invoking CF to add user to list of online users")
 }
-
-
 
 const Select = ({ courseName, setCourseName }: SelectProps) => {
     const router = useRouter();
@@ -35,7 +27,7 @@ const Select = ({ courseName, setCourseName }: SelectProps) => {
 
     // line 2 fetches professor name
     return (<div className={styles.container}>
-        {sections !== undefined ? sections.map((e: InfoDoc) => {
+        {sections !== undefined ? sections.map((e: SectionInfoDoc) => {
             return <div key={e.sec_id} className={styles['sectionCard']}>
                 <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`} onClick={redirectSideEffect}>{e.sec_id} by {e.sec_ins}</Link>
                 <DistrChart courseName={courseName} instructor={e.sec_ins} />
