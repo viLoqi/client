@@ -2,12 +2,9 @@ import React, { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { firebaseAuth } from '@/core/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-
+import { firebaseAuth, useAuthState } from '@/core/firebase';
 import styles from '@/components/NavBar/NavBarBase.module.scss';
 import logo from '@/public/graphics/signin.png';
-
 import { Roboto_Serif } from '@next/font/google';
 
 const roboto_serif = Roboto_Serif({
@@ -19,7 +16,7 @@ interface NavBarBaseProps {
 }
 
 const NavBarBase = ({ children }: NavBarBaseProps) => {
-  const [user, authLoading, authError] = useAuthState(firebaseAuth);
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
 
   return (
     <nav className={styles.nav}>

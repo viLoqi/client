@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Bar } from "react-chartjs-2";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     Chart as ChartJS,
@@ -15,7 +15,6 @@ import {
     LineElement,
     LineController,
 } from "chart.js";
-import { TypedChartComponent } from "react-chartjs-2/dist/types";
 
 ChartJS.register(
     CategoryScale,

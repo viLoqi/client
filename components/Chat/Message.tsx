@@ -1,6 +1,7 @@
 import moment from "moment"
 import { Timestamp } from "firebase/firestore"
 import styles from './Message.module.scss'
+import { Avatar } from "@mui/material"
 
 export interface MessageElement {
     author: string
@@ -16,7 +17,7 @@ const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }:
     // if firstCreated != lastUpdated then that means the message was edited
     return <div>
         <div>
-            <img src={authorPhotoURL} />
+            <Avatar alt={author} src={authorPhotoURL} />
             <span className={styles["authorName"]}>
                 {author}
             </span>

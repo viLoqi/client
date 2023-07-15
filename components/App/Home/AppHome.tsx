@@ -1,26 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
-
-import { firebaseAuth, firebaseStore } from '@/core/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-
-import { getFirestore, collection, doc } from 'firebase/firestore';
-import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
-
+import { firebaseAuth, firebaseStore, useAuthState, collection, useCollection } from '@/core/firebase';
 import styles from '@/components/App/Home/AppHome.module.scss';
 import Course from '@/components/App/Home/Course';
 
 const AppHome = () => {
   const router = useRouter();
-  const [user, authLoading, authError] = useAuthState(firebaseAuth);
-
-  const [collectionValue, collectionLoading, collectionError] = useCollection(collection(firebaseStore, 'chats/'));
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
+  const [chats, _isChatLoad, _chatLoadErr] = useCollection(collection(firebaseStore, 'chats/'));
 
 
   return (
     <div className={styles.section}>
       <div className={styles['courses-container']}>
-        {collectionValue?.docs.map((e: any) =>
+        {chats?.docs.map((e: any) =>
           (<Course key={crypto.randomUUID()} courseName={e.id} />))}
       </div>
     </div>

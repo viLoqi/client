@@ -1,5 +1,4 @@
 import React from 'react';
-
 import styles from '@/components/LandingPage/NavBar.module.scss';
 import NavBarBase from '@/components/NavBar/NavBarBase';
 

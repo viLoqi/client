@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 
-import { useSignInWithGoogle, useAuthState } from 'react-firebase-hooks/auth';
-import { firebaseAuth } from '@/core/firebase';
+import { firebaseAuth, useSignInWithGoogle } from '@/core/firebase';
 
 import styles from '@/components/LandingPage/Login.module.scss';
 import graphic from '@/public/graphics/signin.png';

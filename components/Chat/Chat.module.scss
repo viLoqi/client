@@ -8,6 +8,7 @@
 
     $left-nav-width: 40rem;
     $left-nav-max-width: 40vw;
+    $list-max-width: 10rem;
 
     .main {
         display: grid;
@@ -32,6 +33,12 @@
 
     .input-container {
         background-color: rgba($color: gray, $alpha: 0.5);
+        width: 100%;
+    }
+
+    .user-list-container {
+        @include box($left-nav-width, 100%, $max-width: $list-max-width);
+        background-color: rgba($color: yellow, $alpha: 0.5);
         width: 100%;
     }
 }

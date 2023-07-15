@@ -1,33 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { useRouter } from 'next/router';
-
-import { firebaseAuth, firebaseStore } from '@/core/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { getFirestore, collection, query, orderBy } from 'firebase/firestore';
-import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
-import { KeyboardEvent } from 'react';
-
+import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState } from '@/core/firebase';
 import styles from '@/components/Chat/Chat.module.scss';
 import Message, { MessageElement } from './Message';
+import OnlineUser from './OnlineUser';
 
-interface chatProps {
+interface ChatProps {
   setCourse: any// Dispatch<SetStateAction<string>>
   setSectionName: any
   courseName: string,
   sectionName: string,
 }
 
-const Chat = ({ setCourse, setSectionName, courseName, sectionName }: chatProps) => {
+interface UserElement {
+  name: string
+  photoURL: string
+}
+
+const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps) => {
   const router = useRouter();
   const { course, section_id } = router.query;
-  const [user, authLoading, authError] = useAuthState(firebaseAuth);
-  const [msgs, setMsgs] = useState<JSX.Element[]>([]);
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
   const [message, setMessage] = useState('');
   const chatBoxRef = useRef<HTMLDivElement>(null)
-
-  console.log(user?.displayName);
-  console.log(user?.photoURL)
-
 
   if (course) {
     setCourse(course);
@@ -36,14 +31,16 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: chatProps)
 
   const cname = courseName === '' ? 'CSE 101' : courseName;
   const sname = sectionName === '' ? '01-LEC' : sectionName;
-  const [collectionValue, collectionLoading, collectionError] = useCollection(query(collection(firebaseStore, `chats/${cname}/${sname}/room/messages`), orderBy("firstCreated", "desc")))
+  const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firebaseStore, `chats/${cname}/${sname}/room/messages`), orderBy("firstCreated", "desc")))
+  const [onlineUserList, _userListLoading, _userListLoadingErr] = useCollection(query(collection(firebaseStore, `chats/${cname}/${sname}/room/users`), orderBy("name", "asc")))
 
   useEffect(() => {
     // This will pin the chatbox to the bottom
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
     }
-  }, [message, collectionValue])
+  }, [message, firebaseMessages])
+
 
   const handleOnClick = () => {
     if (message)
@@ -74,9 +71,9 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: chatProps)
 
       <div className={styles['main']}>
         <div className={styles['chat-container']} ref={chatBoxRef}>
-          {collectionValue?.docs.map(e => {
+          {firebaseMessages?.docs.map(e => {
             const currMsg = e.data() as MessageElement
-            return <Message key={crypto.randomUUID()} {...currMsg} />;
+            return <Message key={crypto.randomUUID()} {...currMsg} />
           })}
         </div>
 
@@ -84,6 +81,13 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: chatProps)
           <input onChange={e => setMessage(e.target.value)} onKeyDown={e => handleOnKeyDown(e)}></input>
           <button onClick={handleOnClick} >Send</button>
         </div>
+      </div>
+
+      <div className={styles['user-list-container']}>
+        {onlineUserList?.docs.map(e => {
+          const currUser = e.data() as UserElement
+          return <OnlineUser key={e.id} {...currUser} />
+        })}
       </div>
 
     </div >

@@ -1,6 +1,10 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, doc, collection, query, orderBy } from 'firebase/firestore';
+import { getDatabase, ref } from 'firebase/database'
+import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,5 +18,14 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseStore = getFirestore(firebaseApp);
 const firebaseAuth = getAuth(firebaseApp);
+const firebaseRtdb = getDatabase(firebaseApp)
 
-export { firebaseApp, firebaseStore, firebaseAuth };
+// App Exports
+export { firebaseApp, firebaseStore, firebaseAuth, firebaseRtdb };
+
+
+// Firebase Exports
+export { ref, doc, collection, query, orderBy }
+
+// Firebase Hook Exports
+export { useDocument, useAuthState, useCollection, useSignInWithGoogle }

@@ -3,18 +3,17 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { firebaseAuth } from '@/core/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { firebaseAuth, useAuthState } from '@/core/firebase';
 
 import styles from '@/components/LandingPage/Hero.module.scss';
 import alt_logo from '@/public/alt_logo.png';
 
 const Hero = () => {
-    const [user, authLoading, authError] = useAuthState(firebaseAuth);
+    const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
     const [buttonFragment, setButtonFragment] = useState<JSX.Element>(<></>);
 
     useEffect(() => {
-        if (!authLoading && !user) {
+        if (!_isUserLoading && !user) {
             setButtonFragment(
                 <Link href="#login" className={styles['join-button-container']}>
                     <p>Join Us</p>
@@ -27,7 +26,7 @@ const Hero = () => {
                 </Link>
             );
         }
-    }, [authLoading, user]);
+    }, [_isUserLoading, user]);
 
     return (
         <div className={styles.section}>

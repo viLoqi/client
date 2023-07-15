@@ -18,14 +18,14 @@ interface NavBarProps {
 
 const NavBar = ({ courseName, sectionName }: NavBarProps) => {
   const router = useRouter();
-  const [user, authLoading, authError] = useAuthState(firebaseAuth);
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
 
   // redirects to homepage if not logged in
   useEffect(() => {
-    if (!authLoading && !user) {
+    if (!_isUserLoading && !user) {
       router.push('/');
     }
-  }, [authLoading, user, router]);
+  }, [_isUserLoading, user, router]);
 
   return (
     <NavBarBase>

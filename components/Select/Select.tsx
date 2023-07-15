@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
-import { firebaseStore } from '@/core/firebase';
-
-import { doc } from 'firebase/firestore';
-import { useDocument } from 'react-firebase-hooks/firestore';
+import { firebaseStore, doc, useDocument } from '@/core/firebase';
 import styles from './Select.module.scss';
 import Link from 'next/link';
 import DistrChart from './DistrChart';
+
 
 interface SelectProps {
     courseName: any
@@ -19,6 +15,11 @@ interface InfoDoc {
     sec_ins: string
 }
 
+const redirectSideEffect = () => {
+    // Add this user to the list of online users for a chat room.
+    // this can honestly be a cloud function
+    console.log("Invoking CF to add user to list of online users")
+}
 
 
 
@@ -36,7 +37,7 @@ const Select = ({ courseName, setCourseName }: SelectProps) => {
     return (<div className={styles.container}>
         {sections !== undefined ? sections.map((e: InfoDoc) => {
             return <div key={e.sec_id} className={styles['sectionCard']}>
-                <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`}>{e.sec_id} by {e.sec_ins}</Link>
+                <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`} onClick={redirectSideEffect}>{e.sec_id} by {e.sec_ins}</Link>
                 <DistrChart courseName={courseName} instructor={e.sec_ins} />
             </div>
 
