@@ -23,6 +23,8 @@ const Select = ({ courseName, setCourseName }: SelectProps) => {
         'update_presence',
     );
 
+
+
     const sections = sectionDocument?.data()?.sections!
 
     if (course) { setCourseName(course); }
@@ -32,7 +34,7 @@ const Select = ({ courseName, setCourseName }: SelectProps) => {
         {sections !== undefined ? sections.map((e: SectionInfoDoc) => {
             return <div key={e.sec_id} className={styles['sectionCard']}>
                 <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`} onClick={async () => {
-                    await executeCallable({ uid: user?.uid, name: user?.displayName, course: courseName, section: e.sec_id, photoURL: user?.photoURL });
+                    await executeCallable({ uid: user?.uid, name: user?.displayName, course: courseName, section: e.sec_id, photoURL: user?.photoURL, status: 'on' });
                 }}>{e.sec_id} by {e.sec_ins}</Link>
                 <DistrChart courseName={courseName} instructor={e.sec_ins} />
 

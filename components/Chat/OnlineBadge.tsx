@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
+const OnlineBadge = styled(Badge)(({ theme, color }) => ({
     '& .MuiBadge-badge': {
         backgroundColor: '#44b700',
         color: '#44b700',
@@ -30,4 +30,4 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
 }));
 
-export default StyledBadge
+export default OnlineBadge

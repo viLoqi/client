@@ -32,6 +32,7 @@ export { useDocument, useAuthState, useCollection, useSignInWithGoogle }
 export interface UserDoc {
   name: string
   photoURL: string
+  status: string
 }
 
 export interface SectionInfoDoc {

@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { useRouter } from 'next/router';
-import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState, MessageDoc, UserDoc } from '@/core/firebase';
+import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState, MessageDoc, UserDoc, firebaseApp } from '@/core/firebase';
 import styles from '@/components/Chat/Chat.module.scss';
 import Message from './Message';
-import OnlineUser from './OnlineUser';
+import OnlineUser from './UserAvatar';
+import { useHttpsCallable } from 'react-firebase-hooks/functions';
+import { getFunctions } from 'firebase/functions';
 
 interface ChatProps {
   setCourse: any// Dispatch<SetStateAction<string>>
@@ -18,6 +20,11 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps)
   const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
   const [message, setMessage] = useState('');
   const chatBoxRef = useRef<HTMLDivElement>(null)
+
+  const [executeCallable, executing, error] = useHttpsCallable(
+    getFunctions(firebaseApp),
+    'update_presence',
+  );
 
   if (course) {
     setCourse(course);
@@ -36,6 +43,13 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps)
     }
   }, [message, firebaseMessages])
 
+
+  if (typeof window !== 'undefined') {
+    window.onbeforeunload = async function () {
+      console.log("TRIGGERED CLOSE")
+      await executeCallable({ uid: user?.uid, name: user?.displayName, course: courseName, section: sectionName, photoURL: user?.photoURL, status: 'off' })
+    };
+  }
 
   const handleOnClick = () => {
     if (message)
