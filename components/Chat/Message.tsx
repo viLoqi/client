@@ -8,6 +8,16 @@ interface MessageProps extends MessageDoc { }
 const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }: MessageProps) => {
     const messageDisplayTime = moment().calendar(lastUpdated.toDate()).toString()
 
+    let block = null
+
+    if (content.endsWith("pdf")) {
+        block = <object data=
+            {content}
+            width="800"
+            height="500">
+        </object>
+    }
+
     // if firstCreated != lastUpdated then that means the message was edited
     return <div>
         <div>
@@ -19,7 +29,7 @@ const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }:
                 {messageDisplayTime}
             </span>
         </div>
-        {content}
+        {block}
     </div >;
 }
 
