@@ -1,43 +1,40 @@
 import { useRouter } from 'next/router';
-import { firebaseStore, doc, useDocument, SectionInfoDoc, useAuthState, firebaseAuth, firebaseApp } from '@/core/firebase';
+import { SectionInfoDoc, useAuthState, firebaseAuth, firebaseApp } from '@/core/firebase';
 import styles from './Select.module.scss';
 import Link from 'next/link';
 import DistrChart from './DistrChart';
-import { User } from 'firebase/auth';
-import { useHttpsCallable } from 'react-firebase-hooks/functions';
-import { getFunctions } from 'firebase/functions';
-interface SelectProps {
-    courseName: any
-    setCourseName: any
-}
-
-const Select = ({ courseName, setCourseName }: SelectProps) => {
-    const router = useRouter();
-    const { course } = router.query;
+import { useEffect, useState } from 'react';
+import useGlobalStore from '@/core/global';
+const Select = () => {
     // This document contains the sections for a particular course
-    const [sectionDocument, _isDocLoading, _docLoadErr] = useDocument(doc(firebaseStore, `/chats/${courseName === '' ? 'CSE101' : courseName}`));
     const [user, _isUserLoading, _userLoadError] = useAuthState(firebaseAuth)
+    const [courseName, setCourseName] = useState('')
+    const { global_setSectionName: setSectionName } = useGlobalStore()
+    const router = useRouter()
+    const [sections, setSections] = useState([])
 
-    const [executeCallable, executing, error] = useHttpsCallable(
-        getFunctions(firebaseApp),
-        'update_presence',
-    );
+    useEffect(() => {
+        setCourseName(router.query.course as string)
+    }, [router.query])
 
+    useEffect(() => {
+        if (courseName)
+            fetch(`/api/system/sections?course_name=${courseName}`).then(r =>
+                r.json().then(d => setSections(d))
+            )
+    }, [courseName])
 
+    const handleOnClick = (name: string) => {
+        setSectionName(name)
+    }
 
-    const sections = sectionDocument?.data()?.sections!
-
-    if (course) { setCourseName(course); }
-
-    // line 2 fetches professor name
     return (<div className={styles.container}>
         {sections !== undefined ? sections.map((e: SectionInfoDoc) => {
-            return <div key={e.sec_id} className={styles['sectionCard']}>
-                <Link key={crypto.randomUUID()} href={`/chat?course=${courseName}&section_id=${e.sec_id}`} onClick={async () => {
-                    await executeCallable({ uid: user?.uid, name: user?.displayName, course: courseName, section: e.sec_id, photoURL: user?.photoURL, status: 'on' });
-                }}>{e.sec_id} by {e.sec_ins}</Link>
-                <DistrChart courseName={courseName} instructor={e.sec_ins} />
-
+            return <div key={e.section} className={styles['sectionCard']}>
+                <Link key={crypto.randomUUID()} href={`/chat/?course=${courseName}&section=${e.section}`} onClick={async () => {
+                    handleOnClick(e.section)
+                }}>{e.section} by {e.instructor}</Link>
+                <DistrChart courseName={courseName} instructor={e.instructor} />
             </div>
 
         }) : <></>}

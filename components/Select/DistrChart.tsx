@@ -113,7 +113,6 @@ export default function DistrChart({ courseName, instructor }): React.JSX.Elemen
     const [data, setData] = useState<{ [key: string]: number }>(null)
     const [meta, setMeta] = useState<string[]>([])
 
-
     useEffect(() => {
         fetch(`https://gradus.jiechen.dev/api/instructor/class?instructor=${instructor}`).then(r => r.json().then((d: GradusResponse) => setMeta([...new Set(d.map(el => el.term))])))
 
@@ -126,7 +125,7 @@ export default function DistrChart({ courseName, instructor }): React.JSX.Elemen
         }))
     }, [])
 
-    console.log(data)
+    // console.log(data)
 
     if (data) {
         const values = Object.values(data)

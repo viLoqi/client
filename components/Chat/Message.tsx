@@ -6,8 +6,7 @@ import { MessageDoc } from "@/core/firebase"
 interface MessageProps extends MessageDoc { }
 
 const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }: MessageProps) => {
-    const messageDisplayTime = moment().calendar(lastUpdated.toDate()).toString()
-
+    const messageDisplayTime = moment(lastUpdated.toDate()).calendar()
     let block = null
 
     if (content.endsWith("pdf")) {
@@ -16,6 +15,8 @@ const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }:
             width="800"
             height="500">
         </object>
+    } else {
+        block = content
     }
 
     // if firstCreated != lastUpdated then that means the message was edited

@@ -36,8 +36,8 @@ export interface UserDoc {
 }
 
 export interface SectionInfoDoc {
-  sec_id: string
-  sec_ins: string
+  section: string
+  instructor: string
 }
 
 export interface MessageDoc {

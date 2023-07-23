@@ -1,41 +1,35 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
 import { useRouter } from 'next/router';
-import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState, MessageDoc, UserDoc, firebaseApp } from '@/core/firebase';
+import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState, MessageDoc, UserDoc } from '@/core/firebase';
 import styles from '@/components/Chat/Chat.module.scss';
 import Message from './Message';
 import OnlineUser from './UserAvatar';
-import { useHttpsCallable } from 'react-firebase-hooks/functions';
-import { getFunctions } from 'firebase/functions';
 
-interface ChatProps {
-  setCourse: any// Dispatch<SetStateAction<string>>
-  setSectionName: any
-  courseName: string,
-  sectionName: string,
-}
-
-const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps) => {
-  const router = useRouter();
-  const { course, section_id } = router.query;
+const Chat = () => {
+  const router = useRouter()
   const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
   const [message, setMessage] = useState('');
   const [attachment, setAttachment] = useState<File>();
   const chatBoxRef = useRef<HTMLDivElement>(null)
+  const [chatID, setChatID] = useState("default")
 
-  const [executeCallable, executing, error] = useHttpsCallable(
-    getFunctions(firebaseApp),
-    'update_presence',
-  );
+  useEffect(() => {
+    const courseName = router.query.course
+    const sectionName = router.query.section
+    const url = encodeURI(`/api/system/classChatRoomID?course_name=${courseName}&section_name=${sectionName}`)
+    if (courseName && sectionName)
+      fetch(url).then(r => r.text().then(d => setChatID(d)))
+  }, [router.query])
 
-  if (course) {
-    setCourse(course);
-    setSectionName(section_id);
-  }
 
-  const cname = courseName === '' ? 'CSE 101' : courseName;
-  const sname = sectionName === '' ? '01-LEC' : sectionName;
-  const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firebaseStore, `chats/${cname}/${sname}/room/messages`), orderBy("firstCreated", "desc")))
-  const [onlineUserList, _userListLoading, _userListLoadingErr] = useCollection(query(collection(firebaseStore, `chats/${cname}/${sname}/room/users`), orderBy("name", "asc")))
+  const [messageCollectionPath, setMessageCollectionPath] = useState(`chats/${chatID === "" ? router.query.id : chatID}/messages`)
+
+  useEffect(() => {
+    setMessageCollectionPath(`chats/${chatID}/messages`)
+  }, [chatID])
+
+  const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firebaseStore, messageCollectionPath), orderBy("firstCreated", "desc")))
+  const [onlineUserList, _userListLoading, _userListLoadingErr] = useCollection(query(collection(firebaseStore, messageCollectionPath), orderBy("name", "asc")))
 
   useEffect(() => {
     // This will pin the chatbox to the bottom
@@ -44,49 +38,41 @@ const Chat = ({ setCourse, setSectionName, courseName, sectionName }: ChatProps)
     }
   }, [message, firebaseMessages])
 
-
-  // if (typeof window !== 'undefined') {
-  //   window.onbeforeunload = async function () {
-  //     console.log("TRIGGERED CLOSE")
-  //     await executeCallable({ uid: user?.uid, name: user?.displayName, course: courseName, section: sectionName, photoURL: user?.photoURL, status: 'off' })
-  //   };
-  // }
-
   const handleOnClick = async () => {
+    if (attachment) {
+      const formData = new FormData();
+
+      formData.append("file", attachment)
+      formData.append("file_channel_source", messageCollectionPath)
+      formData.append("author", user?.displayName!)
+      formData.append('authorPhotoURL', user?.photoURL!)
+
+
+      fetch('/api/file/', {
+        method: 'POST',
+        body: formData,
+      }).then(() => {
+        console.log("Attachment Sent")
+      }).catch(e => { console.error(e); });
+    }
+
     if (message) {
       fetch('/api/messaging/', {
         method: 'POST', body: JSON.stringify({
-          'collectionPath': `chats/${courseName}/${sectionName}/room/messages`,
+          'collectionPath': messageCollectionPath,
           'content': message,
           'author': user?.displayName,
           'authorPhotoURL': user?.photoURL,
         })
       }).then(() => {
         console.log('Message Sent!');
-      }).catch(e => { console.log(e); });
-
+      }).catch(e => { console.error(e); });
     }
-
-    if (attachment) {
-      const formData = new FormData();
-
-      formData.append("file", attachment)
-      formData.append("file_channel_source", `/chats/${courseName}/${sectionName}/room/messages`)
-      formData.append("author", user?.displayName!)
-      formData.append('authorPhotoURL', user?.photoURL!)
-
-      fetch('/api/file/', {
-        method: 'POST',
-        body: formData,
-      });
-    }
-
   };
 
   const handleOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter')
       handleOnClick()
-    }
   }
 
   return (

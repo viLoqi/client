@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
@@ -11,15 +11,18 @@ import styles from '@/components/App/NavBar.module.scss';
 import NavBarBase from '@/components/NavBar/NavBarBase';
 import profilePicture from '@/public/default_pfp.png';
 
-interface NavBarProps {
-  courseName?: string;
-  sectionName?: string;
-}
-
-const NavBar = ({ courseName, sectionName }: NavBarProps) => {
+const NavBar = () => {
   const router = useRouter();
   const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
+  const [courseName, setCourseName] = useState('')
+  const [sectionName, setSectionName] = useState('')
 
+  useEffect(() => {
+    setCourseName(router.query.course as string)
+    setSectionName(router.query.section as string)
+  }, [router.query])
+
+  // const { global_selectedCourseName: courseName, global_selectedSectionName: sectionName } = useGlobalStore()
   // redirects to homepage if not logged in
   useEffect(() => {
     if (!_isUserLoading && !user) {
