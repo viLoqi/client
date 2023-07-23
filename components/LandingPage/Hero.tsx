@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { firebaseAuth, useAuthState } from '@/core/firebase';
+import { firebaseAuth, useAuthState } from '@/core/firebase'
 
-import styles from '@/components/LandingPage/Hero.module.scss';
-import alt_logo from '@/public/alt_logo.png';
+import styles from '@/components/LandingPage/Hero.module.scss'
+import alt_logo from '@/public/alt_logo.png'
 
 const Hero = () => {
-    const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
-    const [buttonFragment, setButtonFragment] = useState<JSX.Element>(<></>);
+    const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth)
+    const [buttonFragment, setButtonFragment] = useState<JSX.Element>(<></>)
 
     useEffect(() => {
         if (!_isUserLoading && !user) {
@@ -18,15 +18,15 @@ const Hero = () => {
                 <Link href="#login" className={styles['join-button-container']}>
                     <p>Join Us</p>
                 </Link>
-            );
+            )
         } else {
             setButtonFragment(
                 <Link href="/app" className={styles['join-button-container']}>
                     <p>Connect</p>
                 </Link>
-            );
+            )
         }
-    }, [_isUserLoading, user]);
+    }, [_isUserLoading, user])
 
     return (
         <div className={styles.section}>
@@ -43,7 +43,7 @@ const Hero = () => {
                 {buttonFragment}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Hero;
+export default Hero

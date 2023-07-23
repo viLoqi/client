@@ -1,8 +1,8 @@
-import React from 'react';
-import type { NextPage } from 'next';
+import React from 'react'
+import type { NextPage } from 'next'
 
-import Navbar from '@/components/App/NavBar';
-import AppHome from '@/components/App/Home/AppHome';
+import Navbar from '@/components/App/NavBar'
+import AppHome from '@/components/App/Home/AppHome'
 
 const App: NextPage = () => {
   return (
@@ -10,7 +10,7 @@ const App: NextPage = () => {
       <Navbar />
       <AppHome />
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

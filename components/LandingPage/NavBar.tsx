@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from '@/components/LandingPage/NavBar.module.scss';
-import NavBarBase from '@/components/NavBar/NavBarBase';
+import React from 'react'
+import styles from '@/components/LandingPage/NavBar.module.scss'
+import NavBarBase from '@/components/NavBar/NavBarBase'
 
 const NavBar = () => {
   return (
@@ -14,7 +14,7 @@ const NavBar = () => {
         </div>
       </div>
     </NavBarBase>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

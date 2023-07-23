@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { firebaseAuth, firebaseStore, useAuthState, collection, useCollection } from '@/core/firebase';
-import styles from '@/components/App/Home/AppHome.module.scss';
-import Course from '@/components/App/Home/Course';
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { firebaseAuth, firebaseStore, useAuthState, collection, useCollection } from '@/core/firebase'
+import styles from '@/components/App/Home/AppHome.module.scss'
+import Course from '@/components/App/Home/Course'
 
 const AppHome = () => {
-  const router = useRouter();
-  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
+  const router = useRouter()
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth)
   const [chats, setChats] = useState([])
 
 
   useEffect(() => {
-    fetch("/api/system/all").then(r => r.json().then(d => setChats(d)))
+    fetch('/api/system/all').then(r => r.json().then(d => setChats(d)))
   }, [])
 
   return (
@@ -21,7 +21,7 @@ const AppHome = () => {
           (<Course key={crypto.randomUUID()} courseName={e} />))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AppHome;
+export default AppHome

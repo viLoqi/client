@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { Bar } from "react-chartjs-2";
-import React, { useEffect, useState } from "react";
+import { Bar } from 'react-chartjs-2'
+import React, { useEffect, useState } from 'react'
 
 import {
     Chart as ChartJS,
@@ -14,7 +14,7 @@ import {
     PointElement,
     LineElement,
     LineController,
-} from "chart.js";
+} from 'chart.js'
 
 ChartJS.register(
     CategoryScale,
@@ -27,7 +27,7 @@ ChartJS.register(
     PointElement,
     LineElement,
     LineController
-);
+)
 
 interface GradusResponse {
     section: string
@@ -38,18 +38,18 @@ interface GradusResponse {
 }
 
 const tally = (arr: GradeData[]): { [key: string]: number } => {
-    const total: { [key: string]: number } = {};
+    const total: { [key: string]: number } = {}
     arr.forEach((r) => {
         Object.keys(r.grades).forEach((e) => {
             if (e in total) {
-                total[e] = total[e] + r.grades[e];
+                total[e] = total[e] + r.grades[e]
             } else {
-                total[e] = r.grades[e];
+                total[e] = r.grades[e]
             }
-        });
-    });
-    return total;
-};
+        })
+    })
+    return total
+}
 
 
 const makeSharedOptions = (course) => {
@@ -57,7 +57,7 @@ const makeSharedOptions = (course) => {
         responsive: true,
         plugins: {
             legend: {
-                position: "top" as const,
+                position: 'top' as const,
             },
             title: {
                 display: true,
@@ -69,17 +69,17 @@ const makeSharedOptions = (course) => {
             tooltip: {
                 callbacks: {
                     label: function (context) {
-                        let label = context.dataset.label || "";
+                        let label = context.dataset.label || ''
 
                         if (label) {
-                            label += ": ";
+                            label += ': '
                         }
                         if (context.parsed.y !== null) {
                             label += `${(Math.round(context.parsed.y * 100) / 100).toFixed(
                                 2
-                            )}%`;
+                            )}%`
                         }
-                        return label;
+                        return label
                     },
                 },
             },
@@ -88,7 +88,7 @@ const makeSharedOptions = (course) => {
             y: {
                 title: {
                     display: true,
-                    text: "Percentage of Students",
+                    text: 'Percentage of Students',
                     font: {
                         size: 16,
                     },
@@ -98,15 +98,15 @@ const makeSharedOptions = (course) => {
             x: {
                 title: {
                     display: true,
-                    text: "Grades",
+                    text: 'Grades',
                     font: {
                         size: 16,
                     },
                 },
             },
         },
-    };
-};
+    }
+}
 
 
 export default function DistrChart({ courseName, instructor }): React.JSX.Element {
@@ -119,24 +119,24 @@ export default function DistrChart({ courseName, instructor }): React.JSX.Elemen
         fetch(encodeURI(`https://gradus.jiechen.dev/api/class/?query=${courseName}&instructor=${instructor}`)).then(r => r.json().then(result => {
             const res = tally(result)
             // the DON't CARES
-            delete res["I"]
-            delete res["W"]
+            delete res['I']
+            delete res['W']
             setData(res)
         }))
-    }, [])
+    }, [courseName, instructor])
 
     // console.log(data)
 
     if (data) {
         const values = Object.values(data)
         const sum = values.reduce((a, b) => {
-            return a + b;
-        }, 0);
+            return a + b
+        }, 0)
 
         // converting the values to percentages
         const chartValues = values.map((e) => {
-            return (e / sum) * 100;
-        });
+            return (e / sum) * 100
+        })
 
         const chartData = {
             labels: Object.keys(data),
@@ -147,7 +147,7 @@ export default function DistrChart({ courseName, instructor }): React.JSX.Elemen
             }]
         }
 
-        const options = makeSharedOptions(courseName);
+        const options = makeSharedOptions(courseName)
 
 
 
@@ -156,6 +156,6 @@ export default function DistrChart({ courseName, instructor }): React.JSX.Elemen
                 <Bar key={courseName} options={options} data={chartData} />
                 Teaching @ Stony Brook University Since: {meta[0]}
             </div >
-        );
+        )
     }
 }

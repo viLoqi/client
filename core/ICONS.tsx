@@ -1,10 +1,10 @@
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify/react'
 
-const width = 48;
-const height = 48;
+const width = 48
+const height = 48
 
-const smWidth = 24;
-const smHeight = 24;
+const smWidth = 24
+const smHeight = 24
 
 const ICONS: { [key: string]: React.ReactElement } = {
   google: <Icon icon="mdi:google" width={width} height={height} />,
@@ -20,6 +20,6 @@ const ICONS: { [key: string]: React.ReactElement } = {
   search: (
     <Icon icon="mdi:layers-search-outline" width={smWidth} height={smHeight} />
   ),
-};
+}
 
-export default ICONS;
+export default ICONS

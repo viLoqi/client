@@ -8,12 +8,12 @@ type GlobalState = {
 }
 
 const useGlobalStore = create<GlobalState>(set => ({
-    global_selectedCourseName: "",
-    global_selectedSectionName: "",
-    global_selectedChatID: "",
+    global_selectedCourseName: '',
+    global_selectedSectionName: '',
+    global_selectedChatID: '',
     global_setCourseName: (name) => set({ global_selectedCourseName: name }),
     global_setSectionName: (name) => set({ global_selectedSectionName: name }),
-    global_clearAll: () => set({ global_selectedCourseName: "", global_selectedSectionName: "" })
+    global_clearAll: () => set({ global_selectedCourseName: '', global_selectedSectionName: '' })
 }))
 
 export default useGlobalStore

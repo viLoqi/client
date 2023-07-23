@@ -1,6 +1,6 @@
-import type { NextPage } from 'next';
-import NavBar from '@/components/App/NavBar';
-import Select from '@/components/Select/Select';
+import type { NextPage } from 'next'
+import NavBar from '@/components/App/NavBar'
+import Select from '@/components/Select/Select'
 
 const SelectChat: NextPage = () => {
     return (
@@ -8,7 +8,7 @@ const SelectChat: NextPage = () => {
             <NavBar />
             <Select />
         </>
-    );
-};
+    )
+}
 
-export default SelectChat;
+export default SelectChat

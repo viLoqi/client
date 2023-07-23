@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { Icon } from '@iconify/react';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { Icon } from '@iconify/react'
+import Link from 'next/link'
 
-import { firebaseAuth } from '@/core/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { firebaseAuth } from '@/core/firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
-import styles from '@/components/App/NavBar.module.scss';
-import NavBarBase from '@/components/NavBar/NavBarBase';
-import profilePicture from '@/public/default_pfp.png';
+import styles from '@/components/App/NavBar.module.scss'
+import NavBarBase from '@/components/NavBar/NavBarBase'
+import profilePicture from '@/public/default_pfp.png'
 
 const NavBar = () => {
-  const router = useRouter();
-  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
+  const router = useRouter()
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth)
   const [courseName, setCourseName] = useState('')
   const [sectionName, setSectionName] = useState('')
 
@@ -26,9 +26,9 @@ const NavBar = () => {
   // redirects to homepage if not logged in
   useEffect(() => {
     if (!_isUserLoading && !user) {
-      router.push('/');
+      router.push('/')
     }
-  }, [_isUserLoading, user, router]);
+  }, [_isUserLoading, user, router])
 
   return (
     <NavBarBase>
@@ -50,7 +50,7 @@ const NavBar = () => {
         </div>
       </div>
     </NavBarBase>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

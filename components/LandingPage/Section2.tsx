@@ -1,8 +1,8 @@
-import React from 'react';
-import Image from 'next/image';
+import React from 'react'
+import Image from 'next/image'
 
-import styles from '@/components/LandingPage/Section2.module.scss';
-import graphic from '@/public/graphics/landing2.svg';
+import styles from '@/components/LandingPage/Section2.module.scss'
+import graphic from '@/public/graphics/landing2.svg'
 
 const Section2 = () => {
   return (
@@ -21,7 +21,7 @@ const Section2 = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Section2;
+export default Section2

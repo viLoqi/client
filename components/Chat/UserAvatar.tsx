@@ -1,7 +1,7 @@
-import OnlineBadge from "./OnlineBadge";
-import OfflineBadge from "./OfflineBadge";
-import { Avatar } from "@mui/material";
-import { UserDoc } from "@/core/firebase";
+import OnlineBadge from './OnlineBadge'
+import OfflineBadge from './OfflineBadge'
+import { Avatar } from '@mui/material'
+import { UserDoc } from '@/core/firebase'
 
 interface OnlineUserProps extends UserDoc {
 }
@@ -30,7 +30,7 @@ const UserAvatar = ({ name, photoURL, status }: OnlineUserProps) => {
 
             </>}
 
-    </div >;
+    </div >
 }
 
-export default UserAvatar;
+export default UserAvatar

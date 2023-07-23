@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
-import { SectionInfoDoc, useAuthState, firebaseAuth, firebaseApp } from '@/core/firebase';
-import styles from './Select.module.scss';
-import Link from 'next/link';
-import DistrChart from './DistrChart';
-import { useEffect, useState } from 'react';
-import useGlobalStore from '@/core/global';
+import { useRouter } from 'next/router'
+import { SectionInfoDoc, useAuthState, firebaseAuth, firebaseApp } from '@/core/firebase'
+import styles from './Select.module.scss'
+import Link from 'next/link'
+import DistrChart from './DistrChart'
+import { useEffect, useState } from 'react'
+import useGlobalStore from '@/core/global'
 const Select = () => {
     // This document contains the sections for a particular course
     const [user, _isUserLoading, _userLoadError] = useAuthState(firebaseAuth)
@@ -39,6 +39,6 @@ const Select = () => {
 
         }) : <></>}
     </div >)
-};
+}
 
-export default Select;
+export default Select

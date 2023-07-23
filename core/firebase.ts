@@ -1,9 +1,9 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, collection, query, orderBy, Timestamp } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { getFirestore, doc, collection, query, orderBy, Timestamp } from 'firebase/firestore'
 import { getDatabase, ref } from 'firebase/database'
-import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useDocument, useCollection } from 'react-firebase-hooks/firestore'
+import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,15 +12,15 @@ const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
-};
+}
 
-const firebaseApp = initializeApp(firebaseConfig);
-const firebaseStore = getFirestore(firebaseApp);
-const firebaseAuth = getAuth(firebaseApp);
+const firebaseApp = initializeApp(firebaseConfig)
+const firebaseStore = getFirestore(firebaseApp)
+const firebaseAuth = getAuth(firebaseApp)
 const firebaseRtdb = getDatabase(firebaseApp)
 
 // App Exports
-export { firebaseApp, firebaseStore, firebaseAuth, firebaseRtdb };
+export { firebaseApp, firebaseStore, firebaseAuth, firebaseRtdb }
 
 
 // Firebase Exports

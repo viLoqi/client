@@ -1,5 +1,5 @@
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles'
+import Badge from '@mui/material/Badge'
 
 const OnlineBadge = styled(Badge)(({ theme, color }) => ({
     '& .MuiBadge-badge': {
@@ -28,6 +28,6 @@ const OnlineBadge = styled(Badge)(({ theme, color }) => ({
             opacity: 0,
         },
     },
-}));
+}))
 
 export default OnlineBadge

@@ -1,20 +1,20 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { Icon } from '@iconify/react';
+import React from 'react'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { Icon } from '@iconify/react'
 
-import { firebaseAuth, useSignInWithGoogle } from '@/core/firebase';
+import { firebaseAuth, useSignInWithGoogle } from '@/core/firebase'
 
-import styles from '@/components/LandingPage/Login.module.scss';
-import graphic from '@/public/graphics/signin.png';
+import styles from '@/components/LandingPage/Login.module.scss'
+import graphic from '@/public/graphics/signin.png'
 
 const Login = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [signInWithGoogle] = useSignInWithGoogle(firebaseAuth);
+  const [signInWithGoogle] = useSignInWithGoogle(firebaseAuth)
   const googleSignIn = () => {
-    signInWithGoogle([], { hd: 'stonybrook.edu' }).then(_ => router.push('/app'));
-  };
+    signInWithGoogle([], { hd: 'stonybrook.edu' }).then(_ => router.push('/app'))
+  }
 
   return (
     <div id="login" className={styles.section}>
@@ -26,14 +26,14 @@ const Login = () => {
           <Image src={graphic} alt="person holding key" fill />
         </div>
         <div className={styles['buttons-container']}>
-          <a onClick={() => { googleSignIn(); }}>
+          <a onClick={() => { googleSignIn() }}>
             <Icon icon="mdi:google" />
           </a>
           <a href=""><p>SSO Sign In</p></a>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

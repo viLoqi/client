@@ -1,16 +1,16 @@
-import React, { ReactNode } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { ReactNode } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { firebaseAuth, useAuthState } from '@/core/firebase';
-import styles from '@/components/NavBar/NavBarBase.module.scss';
-import logo from '@/public/graphics/signin.png';
-import { Roboto_Serif } from '@next/font/google';
-import useGlobalStore from '@/core/global';
+import { firebaseAuth, useAuthState } from '@/core/firebase'
+import styles from '@/components/NavBar/NavBarBase.module.scss'
+import logo from '@/public/graphics/signin.png'
+import { Roboto_Serif } from '@next/font/google'
+import useGlobalStore from '@/core/global'
 
 const roboto_serif = Roboto_Serif({
   subsets: ['latin']
-});
+})
 
 interface NavBarBaseProps {
   children?: ReactNode;
@@ -18,7 +18,7 @@ interface NavBarBaseProps {
 
 
 const NavBarBase = ({ children }: NavBarBaseProps) => {
-  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth)
 
   const { global_clearAll } = useGlobalStore()
 
@@ -39,7 +39,7 @@ const NavBarBase = ({ children }: NavBarBaseProps) => {
       </div>
       {children}
     </nav>
-  );
-};
+  )
+}
 
-export default NavBarBase;
+export default NavBarBase

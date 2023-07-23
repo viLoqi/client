@@ -1,5 +1,5 @@
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles'
+import Badge from '@mui/material/Badge'
 
 const OfflineBadge = styled(Badge)(({ theme, color }) => ({
     '& .MuiBadge-badge': {
@@ -7,6 +7,6 @@ const OfflineBadge = styled(Badge)(({ theme, color }) => ({
         color: 'gray',
         boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     },
-}));
+}))
 
 export default OfflineBadge

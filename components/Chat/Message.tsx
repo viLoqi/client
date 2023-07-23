@@ -1,7 +1,7 @@
-import moment from "moment"
+import moment from 'moment'
 import styles from './Message.module.scss'
-import { Avatar } from "@mui/material"
-import { MessageDoc } from "@/core/firebase"
+import { Avatar } from '@mui/material'
+import { MessageDoc } from '@/core/firebase'
 
 interface MessageProps extends MessageDoc { }
 
@@ -9,7 +9,7 @@ const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }:
     const messageDisplayTime = moment(lastUpdated.toDate()).calendar()
     let block = null
 
-    if (content.endsWith("pdf")) {
+    if (content.endsWith('pdf')) {
         block = <object data=
             {content}
             width="800"
@@ -23,15 +23,15 @@ const Message = ({ author, authorPhotoURL, content, firstCreated, lastUpdated }:
     return <div>
         <div>
             <Avatar alt={author} src={authorPhotoURL} />
-            <span className={styles["authorName"]}>
+            <span className={styles['authorName']}>
                 {author}
             </span>
-            <span className={styles["messageDisplayTime"]}>
+            <span className={styles['messageDisplayTime']}>
                 {messageDisplayTime}
             </span>
         </div>
         {block}
-    </div >;
+    </div >
 }
 
-export default Message;
+export default Message

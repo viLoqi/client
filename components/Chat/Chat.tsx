@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
-import { useRouter } from 'next/router';
-import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState, MessageDoc, UserDoc } from '@/core/firebase';
-import styles from '@/components/Chat/Chat.module.scss';
-import Message from './Message';
-import OnlineUser from './UserAvatar';
+import React, { useEffect, useRef, useState, KeyboardEvent } from 'react'
+import { useRouter } from 'next/router'
+import { firebaseAuth, firebaseStore, useCollection, collection, query, orderBy, useAuthState, MessageDoc, UserDoc } from '@/core/firebase'
+import styles from '@/components/Chat/Chat.module.scss'
+import Message from './Message'
+import OnlineUser from './UserAvatar'
 
 const Chat = () => {
   const router = useRouter()
-  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth);
-  const [message, setMessage] = useState('');
-  const [attachment, setAttachment] = useState<File>();
+  const [user, _isUserLoading, _userLoadErr] = useAuthState(firebaseAuth)
+  const [message, setMessage] = useState('')
+  const [attachment, setAttachment] = useState<File>()
   const chatBoxRef = useRef<HTMLDivElement>(null)
-  const [chatID, setChatID] = useState("default")
+  const [chatID, setChatID] = useState('default')
 
   useEffect(() => {
     const courseName = router.query.course
@@ -22,14 +22,14 @@ const Chat = () => {
   }, [router.query])
 
 
-  const [messageCollectionPath, setMessageCollectionPath] = useState(`chats/${chatID === "" ? router.query.id : chatID}/messages`)
+  const [messageCollectionPath, setMessageCollectionPath] = useState(`chats/${chatID === '' ? router.query.id : chatID}/messages`)
 
   useEffect(() => {
     setMessageCollectionPath(`chats/${chatID}/messages`)
   }, [chatID])
 
-  const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firebaseStore, messageCollectionPath), orderBy("firstCreated", "desc")))
-  const [onlineUserList, _userListLoading, _userListLoadingErr] = useCollection(query(collection(firebaseStore, messageCollectionPath), orderBy("name", "asc")))
+  const [firebaseMessages, _fbMessageLoading, _fbMessageLoadingErr] = useCollection(query(collection(firebaseStore, messageCollectionPath), orderBy('firstCreated', 'desc')))
+  const [onlineUserList, _userListLoading, _userListLoadingErr] = useCollection(query(collection(firebaseStore, messageCollectionPath), orderBy('name', 'asc')))
 
   useEffect(() => {
     // This will pin the chatbox to the bottom
@@ -40,11 +40,11 @@ const Chat = () => {
 
   const handleOnClick = async () => {
     if (attachment) {
-      const formData = new FormData();
+      const formData = new FormData()
 
-      formData.append("file", attachment)
-      formData.append("file_channel_source", messageCollectionPath)
-      formData.append("author", user?.displayName!)
+      formData.append('file', attachment)
+      formData.append('file_channel_source', messageCollectionPath)
+      formData.append('author', user?.displayName!)
       formData.append('authorPhotoURL', user?.photoURL!)
 
 
@@ -52,8 +52,8 @@ const Chat = () => {
         method: 'POST',
         body: formData,
       }).then(() => {
-        console.log("Attachment Sent")
-      }).catch(e => { console.error(e); });
+        console.log('Attachment Sent')
+      }).catch(e => { console.error(e) })
     }
 
     if (message) {
@@ -65,10 +65,10 @@ const Chat = () => {
           'authorPhotoURL': user?.photoURL,
         })
       }).then(() => {
-        console.log('Message Sent!');
-      }).catch(e => { console.error(e); });
+        console.log('Message Sent!')
+      }).catch(e => { console.error(e) })
     }
-  };
+  }
 
   const handleOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter')
@@ -113,7 +113,7 @@ const Chat = () => {
       </div>
 
     </div >
-  );
-};
+  )
+}
 
-export default Chat;
+export default Chat
